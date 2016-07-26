@@ -1,0 +1,18 @@
+1、	IOS9 无法调用支付宝客户端的解决方法 info.plist 
+为了适配 iOS9.0 中的 App Transport Security(ATS)对 http 的限制,这里需要对 支付宝的请求地址 alipay.com 做例外,在 app 对应的 info.list 中添加如下配置 (文中以 XML 格式描述)。 
+2.同时需要在Plist中设置支付宝为白名单 ，最后两项（alipay和alipayshare）
+<key>NSAppTransportSecurity</key>
+   <dict>
+       <key>NSExceptionDomains</key>
+       <dict>
+          <key>alipay.com</key>
+          <dict>
+<!--Include to allow subdomains--> <key>NSIncludesSubdomains</key>
+<true/>
+<!--Include to allow insecure HTTP requests--> <key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key> <true/>
+             <!--Include to specify minimum TLS version-->
+             <key>NSTemporaryExceptionMinimumTLSVersion</key>
+             <string>TLSv1.1</string>
+          </dict>
+       </dict>
+</dict>
